@@ -20,8 +20,9 @@ app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const USER_URL_MS: string = 'http://localhost:3001'
-const MEDICINE_URL_MS: string = 'http://localhost:3002'
+const PORT = process.env.PORT || 3000
+const USER_URL_MS: string = 'https://farma-user.herokuapp.com'
+const MEDICINE_URL_MS: string = 'https://farma-medicine.herokuapp.com'
 app.get('/', (req, res) => {
   return res.json({ message: 'Running application' });
 });
@@ -80,4 +81,4 @@ app.post(`/medicineUsers`, checkToken, httpProxy(MEDICINE_URL_MS, { timeout: 300
 app.delete(`/medicineUsers/:id`, checkToken, httpProxy(MEDICINE_URL_MS, { timeout: 3000 }));
 app.get(`/medicineUsers/:id`, checkToken, httpProxy(MEDICINE_URL_MS, { timeout: 3000 }));
 
-app.listen(3000, () => console.log('Running application'));
+app.listen(PORT, () => console.log('Running application'));
